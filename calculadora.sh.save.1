@@ -1,4 +1,4 @@
-#!/bin/bash
+/#!/bin/bash
 
 while true; do
 echo "---------------------------"
@@ -9,7 +9,7 @@ echo "2. Trigonometricas"
 echo "3. Exponenciales"
 echo "4. Trigonometricas inversas"
 echo "5. Logaritmicas"
-echo "6. Raices"
+echo "6. inversas"
 echo "7. salir"
 echo "---------------------------"
 
@@ -114,12 +114,12 @@ read -p "Elige una opcion (1-2):" op_raiz
 read -p "Ingrese el numero:" numero
 case $op_raiz in
 1)
-resultado=$(echo "sqrt($numero)" | bc -l)
+resultado=$(echo "sqrt($numero)" | bc -l
 echo " La raiz cuadrada es:$resultado"
 ;;
 2)
 read -p "Ingrese el n de la raiz:" n
-resultado=$(echo "e(l($numero)/$n)" |bc -l)
+resultado=$(echo "e(l($numero)/$n)" |bc -l
 echo "La raiz $n-esima es:$resultado"
 ;;
 *)

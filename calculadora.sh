@@ -134,32 +134,46 @@ read -p "Elige una opción: " opcion_trig
 case $opcion_trig in
     1)
         read -p "Ingresa un número entre -1 y 1: " x
-        if [ $(echo "$x <= -1 || $x >= 1" | bc -l) -eq 1 ]; then
+        if [ $(echo "$x < -1 || $x > 1" | bc -l) -eq 1 ]; then
             echo "Error: El dominio de asin es entre -1 y 1."
+        elif [ $(echo "$x == 1" | bc -l) -eq 1 ]; then
+            resultado=$(echo "scale=6; 2 * a(1)" | bc -l)
+            echo "Resultado: asin($x) = $resultado rad"
+        elif [ $(echo "$x == -1" | bc -l) -eq 1 ]; then
+            resultado=$(echo "scale=6; -2 * a(1)" | bc -l)
+            echo "Resultado: asin($x) = $resultado rad"
         else
             resultado=$(echo "scale=6; a($x / sqrt(1 - $x^2))" | bc -l)
             echo "Resultado: asin($x) = $resultado rad"
         fi
         ;;
+
     2)
         read -p "Ingresa un número entre -1 y 1: " x
-        if [ $(echo "$x <= -1 || $x >= 1" | bc -l) -eq 1 ]; then
+        if [ $(echo "$x < -1 || $x > 1" | bc -l) -eq 1 ]; then
             echo "Error: El dominio de acos es entre -1 y 1."
+        elif [ $(echo "$x == 1" | bc -l) -eq 1 ]; then
+            resultado=$(echo "scale=6; 0" | bc -l)
+            echo "Resultado: acos($x) = $resultado rad"
+        elif [ $(echo "$x == -1" | bc -l) -eq 1 ]; then
+            resultado=$(echo "scale=6; 2 * a(1)" | bc -l)
+            echo "Resultado: acos($x) = $resultado rad"
         else
             resultado=$(echo "scale=6; (2 * a(1)) - a($x / sqrt(1 - $x^2))" | bc -l)
             echo "Resultado: acos($x) = $resultado rad"
         fi
         ;;
+
     3)
         read -p "Ingresa un número: " x
         resultado=$(echo "scale=6; a($x)" | bc -l)
         echo "Resultado: atan($x) = $resultado rad"
         ;;
+
     *)
         echo "Opción inválida"
         ;;
 esac
-
 ;;
 
 5)

@@ -64,7 +64,7 @@ case $op_exp in
 
 	1)
 	read -p "ingresa el numero base: " base
-	read -p "ingresa el exponente (debe ser entero): "
+	read -p "ingresa el exponente (debe ser entero): " exp
 	resultado=$(echo "$base ^ $exp" | bc -l)
 	echo "el resultado de $base elevado a $exp es: $resultado"
 	;;

@@ -54,7 +54,6 @@ esac
 
 
 3)
-
 echo "--- EXPONENCIALES ---"
 echo "1. Potenica basica(x^y)"
 echo "2. Exponencial de euler (e^x)"
@@ -86,46 +85,62 @@ case $op_exp in
 ;;
 
 5)
+while true
+do
 echo "---LOGARITMICAS---"
 echo "1. Logaritmo natural (ln)"
 echo "2. Logaritmo base 10 (log)"
-read -p "Elige una opcion (1-2): " op_log
-read -p "Ingrese el numero:" numero
+echo "3. Salir al menu principal"
+read -p "Elige una opcion (1-3): " op_log
 case $op_log in 
 1)
+read -p "Ingrese el numero:" numero
 resultado=$(echo "l($numero)" | bc -l)
 echo "El logaritmo natural es: $resultado"
 ;;
 2)
+read -p "Ingrese el numero:" numero
 resultado=$(echo "l($numero)/l(10)" | bc -l)
 echo "El logaritmo base 10 es: $resultado"
 ;;
-*)
-echo "opcion invalida"
-;;
-esac 
-;;
-
-6)
-echo "--RAICES--"
-echo "1. Rices cuadradas"
-echo "2. Raiz n-esima"
-read -p "Elige una opcion (1-2):" op_raiz
-read -p "Ingrese el numero:" numero
-case $op_raiz in
-1)
-resultado=$(echo "sqrt($numero)" | bc -l)
-echo " La raiz cuadrada es:$resultado"
-;;
-2)
-read -p "Ingrese el n de la raiz:" n
-resultado=$(echo "e(l($numero)/$n)" |bc -l)
-echo "La raiz $n-esima es:$resultado"
+3)
+break
 ;;
 *)
 echo "opcion invalida"
 ;;
 esac
+done 
+;;
+
+6)
+while true
+do 
+echo "--RAICES--"
+echo "1. Rices cuadradas"
+echo "2. Raiz n-esima"
+echo "3. Salir al menu principal"
+read -p "Elige una opcion (1-3):" op_raiz
+case $op_raiz in
+1)
+read -p "Ingrese el numero:" numero
+resultado=$(echo "sqrt($numero)" | bc -l)
+echo " La raiz cuadrada es:$resultado"
+;;
+2)
+read -p "Ingrese el numero:" numero
+read -p "Ingrese el n de la raiz:" n
+resultado=$(echo "e(l($numero)/$n)" |bc -l)
+echo "La raiz $n-esima es:$resultado"
+;;
+3)
+break
+;;
+*)
+echo "opcion invalida"
+;;
+esac
+done
 ;;
 
 7)

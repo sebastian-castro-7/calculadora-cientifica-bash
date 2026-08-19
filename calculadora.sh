@@ -2,8 +2,7 @@
 
 while true; do
 echo "---------------------------"
-echo "  CALCULADORA CIENTIFICA   "
-echo "---------------------------"
+echo "  CALCULADORA CIENTIFICA "
 echo "1. Op. Basicas"
 echo "2. Trigonometricas"
 echo "3. Exponenciales"
@@ -17,8 +16,52 @@ read -p "Eliga una opcion: " opcion
 
 case $opcion in
 1)
+    echo ""
+    echo "----- OPERACIONES BÁSICAS -----"
+    echo "1) Suma (+)"
+    echo "2) Resta (-)"
+    echo "3) Multiplicación (*)"
+    echo "4) División (/)"
+    read -p "Elige una opción: " opcion_basica
 
+    case $opcion_basica in
+        1)
+            read -p "Ingresa el primer número: " n1
+            read -p "Ingresa el segundo número: " n2
+            resultado=$(echo "scale=6; $n1 + $n2" | bc -l)
+            echo "Resultado: $n1 + $n2 = $resultado"
+            ;;
+        2)
+            read -p "Ingresa el primer número: " n1
+            read -p "Ingresa el segundo número: " n2
+            resultado=$(echo "scale=6; $n1 - $n2" | bc -l)
+            echo "Resultado: $n1 - $n2 = $resultado"
+            ;;
+        3)
+            read -p "Ingresa el primer número: " n1
+            read -p "Ingresa el segundo número: " n2
+            resultado=$(echo "scale=6; $n1 * $n2" | bc -l)
+            echo "Resultado: $n1 * $n2 = $resultado"
+            ;;
+        4)
+            read -p "Ingresa el primer número: " n1
+            read -p "Ingresa el segundo número: " n2
+            if [ $(echo "$n2 == 0" | bc -l) -eq 1 ]; then
+                echo "Error: No se puede dividir entre cero."
+            else
+                resultado=$(echo "scale=6; $n1 / $n2" | bc -l)
+                echo "Resultado: $n1 / $n2 = $resultado"
+            fi
+            ;;
+        *)
+            echo "Opción inválida."
+            ;;
+    esac
 ;;
+     
+
+
+
 
 2)
 
@@ -81,6 +124,41 @@ case $op_exp in
   ;;
 
 4)
+echo ""
+echo "----- TRIGONOMETRÍA INVERSA -----"
+echo "1) Arcoseno (sin^-1)"
+echo "2) Arcocoseno (cos^-1)"
+echo "3) Arcotangente (tan^-1)"
+read -p "Elige una opción: " opcion_trig
+
+case $opcion_trig in
+    1)
+        read -p "Ingresa un número entre -1 y 1: " x
+        if [ $(echo "$x <= -1 || $x >= 1" | bc -l) -eq 1 ]; then
+            echo "Error: El dominio de asin es entre -1 y 1."
+        else
+            resultado=$(echo "scale=6; a($x / sqrt(1 - $x^2))" | bc -l)
+            echo "Resultado: asin($x) = $resultado rad"
+        fi
+        ;;
+    2)
+        read -p "Ingresa un número entre -1 y 1: " x
+        if [ $(echo "$x <= -1 || $x >= 1" | bc -l) -eq 1 ]; then
+            echo "Error: El dominio de acos es entre -1 y 1."
+        else
+            resultado=$(echo "scale=6; (2 * a(1)) - a($x / sqrt(1 - $x^2))" | bc -l)
+            echo "Resultado: acos($x) = $resultado rad"
+        fi
+        ;;
+    3)
+        read -p "Ingresa un número: " x
+        resultado=$(echo "scale=6; a($x)" | bc -l)
+        echo "Resultado: atan($x) = $resultado rad"
+        ;;
+    *)
+        echo "Opción inválida"
+        ;;
+esac
 
 ;;
 

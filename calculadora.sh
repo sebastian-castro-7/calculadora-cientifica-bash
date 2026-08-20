@@ -225,7 +225,7 @@ read -p "Elige una opción: " opcion_trig
 case $opcion_trig in
     1)
           while true; do
-                read -p "ingresa un numero entre -1 y 1x: " x
+                read -p "ingresa un numero entre -1 y 1: " x
                 if [[ "$x" =~ ^-?[0-9]+(\.[0-9]+)?$ ]]; then
                 break;
                 else
@@ -233,17 +233,24 @@ case $opcion_trig in
                 fi
                 done
 
-        if [ $(echo "$x <= -1 || $x >= 1" | bc -l) -eq 1 ]; then
+        if [ $(echo "$x < -1 || $x > 1" | bc -l) -eq 1 ]; then
             echo "Error: El dominio de asin es entre -1 y 1."
+        elif [ $(echo "$x == 1" | bc -l) -eq 1 ]; then
+            resultado=$(echo "scale=6; 2 * a(1)" | bc -l)
+            echo "Resultado: asin($x) = $resultado rad"
+        elif [ $(echo "$x == -1" | bc -l) -eq 1 ]; then
+            resultado=$(echo "scale=6; -2 * a(1)" | bc -l)
+            echo "Resultado: asin($x) = $resultado rad"
         else
             resultado=$(echo "scale=6; a($x / sqrt(1 - $x^2))" | bc -l)
             echo "Resultado: asin($x) = $resultado rad"
         fi
         ;;
+
     2)
 
 	  while true; do
-                read -p "ingresa un numero entre -1 y 1x: " x
+                read -p "ingresa un numero entre -1 y 1: " x
                 if [[ "$x" =~ ^-?[0-9]+(\.[0-9]+)?$ ]]; then
                 break;
                 else
@@ -251,16 +258,23 @@ case $opcion_trig in
                 fi
                 done
 
-        if [ $(echo "$x <= -1 || $x >= 1" | bc -l) -eq 1 ]; then
+        if [ $(echo "$x < -1 || $x > 1" | bc -l) -eq 1 ]; then
             echo "Error: El dominio de acos es entre -1 y 1."
+        elif [ $(echo "$x == 1" | bc -l) -eq 1 ]; then
+            resultado=$(echo "scale=6; 0" | bc -l)
+            echo "Resultado: acos($x) = $resultado rad"
+        elif [ $(echo "$x == -1" | bc -l) -eq 1 ]; then
+            resultado=$(echo "scale=6; 2 * a(1)" | bc -l)
+            echo "Resultado: acos($x) = $resultado rad"
         else
             resultado=$(echo "scale=6; (2 * a(1)) - a($x / sqrt(1 - $x^2))" | bc -l)
             echo "Resultado: acos($x) = $resultado rad"
         fi
         ;;
+
     3)
           while true; do
-                read -p "ingresa un numero entre: " x
+                read -p "ingresa un numero: " x
                 if [[ "$x" =~ ^-?[0-9]+(\.[0-9]+)?$ ]]; then
                 break;
                 else
@@ -271,11 +285,11 @@ case $opcion_trig in
         resultado=$(echo "scale=6; a($x)" | bc -l)
         echo "Resultado: atan($x) = $resultado rad"
         ;;
+
     *)
         echo "Opción inválida"
         ;;
 esac
-
 ;;
 
 5)
